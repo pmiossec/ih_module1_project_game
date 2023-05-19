@@ -15,6 +15,7 @@ class Board {
         this.player1 = player1;
         this.player2 = player2;
         this.setCurrentPlayer(player1);
+        this.audio = new Audio('./sound/bubble-popping.mp3');
     }
 
     createCells(cellsCount) {
@@ -87,6 +88,7 @@ class Board {
     popBubble(iCell) {
         this.selectedCells.push(iCell);
 
+        this.audio.play();
         // const row = Math.floor(iCell / 6);
         // const column = iCell % 6;
         if (this.board[iCell] === BubbleState.unused) {
