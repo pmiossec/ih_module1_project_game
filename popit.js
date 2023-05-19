@@ -57,6 +57,8 @@ class Board {
         this.setCurrentPlayer(this.activePlayer == this.player1
             ? this.player2
             : this.player1);
+        
+         this.selectedCells = [];
     }
 
     canAddOneMore() {
