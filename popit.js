@@ -70,7 +70,6 @@ class Board {
     }
 
     popBubble(iCell) {
-
         this.selectedCells.push(iCell);
 
         // const row = Math.floor(iCell / 6);
@@ -79,13 +78,22 @@ class Board {
             return;
         }
         if (this.board[iCell] === BubbleState.selected) {
-            this.board[iCell] = BubbleState.untouched;
+            this.changeCellState(iCell, BubbleState.untouched);
         }
         if (this.board[iCell] === BubbleState.untouched) {
-            this.board[iCell] = BubbleState.selected;
+            this.changeCellState(iCell, BubbleState.selected);
         }
-        console.log("pop", iCell, this.board);
+    }
+
+    changeCellState(iCell, newState) {
+        this.board[iCell] = newState;
+        console.log("cell:", iCell, "new state:", newState, "board:", this.board);
         document.getElementById(`c${iCell}`).className = this.board[iCell];
+    }
+
+    undo(event) {
+        const iCell = this.selectedCells.pop();
+        this.changeCellState(iCell, BubbleState.untouched);
     }
 }
 
@@ -120,4 +128,8 @@ class SquareBoard extends Board {
     }
 }
 
-const popGame = new SquareBoard(6, { name: "Phil"}, {name: "Computer"});
+const popGame = new SquareBoard(6, { name: "Phil"}, {name: "Mia"});
+function undo(event) {
+    popGame.undo(event)
+}
+document.getElementById('undo').addEventListener('click', undo);
