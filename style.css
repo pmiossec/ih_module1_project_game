@@ -3,17 +3,19 @@
     --grid-size: 6;
 }
 
-div.cell {
-    border: 1px blue solid;
-    width: var(--cell-size);
-    height: var(--cell-size);
-}
+
 
 div.board {
     display: grid;
     grid-template-columns: repeat(var(--grid-size), var(--cell-size) [col-start]);
     grid-template-rows: repeat(var(--grid-size), var(--cell-size) [col-start]);
     border-radius: 100px;
+}
+
+.board div {
+    border: 1px blue solid;
+    width: var(--cell-size);
+    height: var(--cell-size);
 }
 
 .popped{
