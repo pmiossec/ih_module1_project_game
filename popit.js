@@ -48,8 +48,7 @@ class Board {
         
         for (let i = 0; i < this.selectedCells.length; i++) {
             let iCell = this.selectedCells[i];
-            this.board[iCell] = BubbleState.popped;
-            document.getElementById(`c${iCell}`).className = BubbleState.popped;
+            this.changeCellState(iCell, BubbleState.popped);
         }
 
         // console.log("cell processed!!!");
