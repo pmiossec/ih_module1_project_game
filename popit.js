@@ -34,7 +34,16 @@ class Board {
         currentPlayerLabel.textContent = player.name;
     }
 
+    displayUserMessage(message) {
+        console.log(message);
+    }
+    
     switchPlayer() {
+        if (this.selectedCells.length === 0) {
+            this.displayUserMessage("You have to select at least a cell");
+            return;
+        }
+
         console.log("start processing cells...");
         
         for (let i = 0; i < this.selectedCells.length; i++) {
@@ -50,13 +59,17 @@ class Board {
             : this.player1);
     }
 
-    popBubble(iCell) {
-
+    canAddOneMore() {
         // Max 3 cells!
         if (this.selectedCells.length === 3) {
-            console.log("3 cells max!!");
-            return;
+            this.displayUserMessage("3 cells max!!");
+            return false;
         }
+
+        return true;
+    }
+
+    popBubble(iCell) {
 
         this.selectedCells.push(iCell);
 
@@ -81,9 +94,24 @@ class SquareBoard extends Board {
         super(size * size,
             player1,
             player2);
+        this.squareSize = size;
     }
 
+    getRowOfCell(iCell) {
+        return Math.floor(iCell / this.squareSize);
+    }
     popBubble(iCell, elementId) {
+        const iRow = this.getRowOfCell(iCell);
+        console.log("iRow:", iRow);
+        if(!super.canAddOneMore()) {
+            return;
+        }
+
+        if (this.selectedCells.length !== 0 && this.getRowOfCell(this.selectedCells[0]) !== iRow) {
+            this.displayUserMessage("All the cells selected should be on the same line!");
+            return;
+        }
+
         super.popBubble(iCell, elementId);
     }
 
