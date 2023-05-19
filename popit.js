@@ -44,7 +44,7 @@ class Board {
             return;
         }
 
-        console.log("start processing cells...");
+        // console.log("start processing cells...");
         
         for (let i = 0; i < this.selectedCells.length; i++) {
             let iCell = this.selectedCells[i];
@@ -52,7 +52,11 @@ class Board {
             document.getElementById(`c${iCell}`).className = BubbleState.popped;
         }
 
-        console.log("cell processed!!!");
+        // console.log("cell processed!!!");
+
+        if (this.isGameFinished()) {
+            return;
+        }
 
         this.setCurrentPlayer(this.activePlayer == this.player1
             ? this.player2
@@ -69,6 +73,16 @@ class Board {
         }
 
         return true;
+    }
+
+    isGameFinished() {
+        if(this.board.filter(c => c === BubbleState.untouched).length === 0)
+        {
+            this.displayUserMessage(`${this.activePlayer.name} loose!!!`)
+            return true;
+        }
+
+        return false;
     }
 
     popBubble(iCell) {
