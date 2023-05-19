@@ -20,8 +20,17 @@ class Board {
 
     createCells(cellsCount) {
         const cells = []
+        const boardDiv = document.getElementById("board");
         for (let i = 0; i < cellsCount; i++) {
             cells[i] = BubbleState.untouched;
+            let div = document.createElement("div");
+            div.setAttribute("class", "untouched");
+            div.setAttribute("id", `c${i}`);
+            div.addEventListener("click", () => this.popBubble(i));
+            boardDiv.appendChild(div);
+            // <div id="c0" class="untouched" onclick="javascript:popGame.popBubble(0)"></div>
+
+
         }
 
         return cells;
@@ -148,9 +157,9 @@ class SquareBoard extends Board {
     }
 }
 
-const gridSize = 6;
+const gridSize = 3;
 
-const popGame = new SquareBoard(gridSize, { name: "Phil"}, {name: "Computer"});
+const popGame = new SquareBoard(gridSize, { name: "Phil"}, {name: "Mia"});
 
 document.documentElement.style.setProperty('--cell-size', `${Math.floor(100/gridSize)}vw`);
 document.documentElement.style.setProperty('--grid-size', gridSize);
