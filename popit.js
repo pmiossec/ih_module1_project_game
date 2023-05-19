@@ -143,7 +143,13 @@ class SquareBoard extends Board {
     }
 }
 
-const popGame = new SquareBoard(6, { name: "Phil"}, {name: "Mia"});
+const gridSize = 6;
+
+const popGame = new SquareBoard(gridSize, { name: "Phil"}, {name: "Computer"});
+
+document.documentElement.style.setProperty('--cell-size', `${Math.floor(100/gridSize)}vw`);
+document.documentElement.style.setProperty('--grid-size', gridSize);
+
 function undo(event) {
     popGame.undo(event)
 }

@@ -1,13 +1,19 @@
+:root {
+    --cell-size: 15vw;
+    --grid-size: 6;
+}
+
 div.cell {
     border: 1px blue solid;
-    width: 50px;
-    height: 50px;
+    width: var(--cell-size);
+    height: var(--cell-size);
 }
 
 div.board {
     display: grid;
-    grid-template-columns: repeat(6, 50px [col-start]);
-    grid-template-rows: repeat(6, 50px [col-start]);
+    grid-template-columns: repeat(var(--grid-size), var(--cell-size) [col-start]);
+    grid-template-rows: repeat(var(--grid-size), var(--cell-size) [col-start]);
+    border-radius: 100px;
 }
 
 .popped{
@@ -19,7 +25,7 @@ div.board {
 }
 
 .untouched{
-    background-color: aliceblue;
+    background-color: rgb(37, 148, 245);
 }
 
 /* .unused{
