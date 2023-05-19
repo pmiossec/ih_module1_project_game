@@ -1,0 +1,11 @@
+div.cell {
+    border: 1px blue solid;
+    width: 50px;
+    height: 50px;
+}
+
+div.board {
+    display: grid;
+    grid-template-columns: repeat(6, 50px [col-start]);
+    grid-template-rows: repeat(6, 50px [col-start]);
+}
