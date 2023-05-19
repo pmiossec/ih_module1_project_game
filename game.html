@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="popit.js"></script>
     <title>Pop-it game!</title>
 </head>
 <body>
     <h1>Pop-it</h1>
+
+    <button onclick="javascript:popGame.switchPlayer()">Switch Player</button>
+    <label id="currentPlayer">To be initialized....</label>
 
     <div class="board">
         <div id="c1-1" class="cell" onclick="javascript:popGame.popBubble(0)"></div>
@@ -49,5 +51,6 @@
         <div id="c6-5" class="cell" onclick="javascript:popGame.popBubble(34)"></div>
         <div id="c6-6" class="cell" onclick="javascript:popGame.popBubble(35)"></div>
     </div>
+    <script src="popit.js"></script>
 </body>
 </html>
