@@ -9,3 +9,19 @@ div.board {
     grid-template-columns: repeat(6, 50px [col-start]);
     grid-template-rows: repeat(6, 50px [col-start]);
 }
+
+.popped{
+    background-color: gray;
+}
+
+.selected{
+    background-color: lightgray;
+}
+
+.untouched{
+    background-color: aliceblue;
+}
+
+/* .unused{
+    
+} */

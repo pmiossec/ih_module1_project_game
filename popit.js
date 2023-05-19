@@ -1,10 +1,10 @@
 console.log("popit!!!!!")
 
 const BubbleState = {
-    popped: 0,
-    selected: 1,
-    untouched: 2,
-    unused: 3,
+    popped: "popped",
+    selected: "selected",
+    untouched: "untouched",
+    unused: "unused",
 }
 
 class Board {
@@ -25,19 +25,32 @@ class Board {
     }
 
     switchPlayer() {
+        console.log("start processing cells...");
+        
         for (let i = 0; i < this.board.length; i++) {
-            for (let j = 0; i < this.board[i].length; j++) {
-                const element = this.board[i][j];
-                if(element === BubbleState.selected) {
-                    element = BubbleState.popped;
+            for (let j = 0; j < this.board[i].length; j++) {
+                if(this.board[i][j] === BubbleState.selected) {
+                    this.board[i][j] = BubbleState.popped;
                 }
             }
         }
+
+        console.log("cell processed!!!");
 
         this.setCurrentPlayer(this.activePlayer == this.player1
             ? this.player2
             : this.player1);
     }
+
+    // selectCell(iCell) {
+    //     if(this.selectedCells.length === 3) {
+    //         console.log("3 cells max!!");
+    //     }
+
+    //     if
+
+    //     this.selectedCells ==
+    // }
 }
 
 class SquareBoard extends Board {
@@ -48,7 +61,7 @@ class SquareBoard extends Board {
             player2);
     }
 
-    popBubble(iCell) {
+    popBubble(iCell, elementId) {
         const row = Math.floor(iCell / 6);
         const column = iCell % 6;
         if (this.board[row][column] === BubbleState.unused) {
@@ -61,6 +74,7 @@ class SquareBoard extends Board {
             this.board[row][column] = BubbleState.selected;
         }
         console.log("pop", iCell, row, column, this.board);
+        document.getElementById(elementId).className = this.board[row][column]
     }
 
     switchPlayer() {
