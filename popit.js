@@ -8,14 +8,24 @@ const BubbleState = {
 }
 
 class Board {
-    constructor(board, player1, player2) {
-        this.board = board;
+    constructor(cellsCount, player1, player2) {
+        this.board = this.createCells(cellsCount);
+
         this.selectedCells = [];
         this.player1 = player1;
         this.player2 = player2;
         this.setCurrentPlayer(player1);
     }
 
+    createCells(cellsCount) {
+        const cells = []
+        for (let i = 0; i < cellsCount; i++) {
+            cells[i] = BubbleState.untouched;
+        }
+
+        return cells;
+    }
+    
     setCurrentPlayer(player) {
         this.activePlayer = player;
         console.log("Current player will be:", player)
@@ -27,12 +37,10 @@ class Board {
     switchPlayer() {
         console.log("start processing cells...");
         
-        for (let i = 0; i < this.board.length; i++) {
-            for (let j = 0; j < this.board[i].length; j++) {
-                if(this.board[i][j] === BubbleState.selected) {
-                    this.board[i][j] = BubbleState.popped;
-                }
-            }
+        for (let i = 0; i < this.selectedCells.length; i++) {
+            let iCell = this.selectedCells[i];
+            this.board[iCell] = BubbleState.popped;
+            document.getElementById(`c${iCell}`).className = BubbleState.popped;
         }
 
         console.log("cell processed!!!");
@@ -42,39 +50,41 @@ class Board {
             : this.player1);
     }
 
-    // selectCell(iCell) {
-    //     if(this.selectedCells.length === 3) {
-    //         console.log("3 cells max!!");
-    //     }
+    popBubble(iCell) {
 
-    //     if
+        // Max 3 cells!
+        if (this.selectedCells.length === 3) {
+            console.log("3 cells max!!");
+            return;
+        }
 
-    //     this.selectedCells ==
-    // }
+        this.selectedCells.push(iCell);
+
+        // const row = Math.floor(iCell / 6);
+        // const column = iCell % 6;
+        if (this.board[iCell] === BubbleState.unused) {
+            return;
+        }
+        if (this.board[iCell] === BubbleState.selected) {
+            this.board[iCell] = BubbleState.untouched;
+        }
+        if (this.board[iCell] === BubbleState.untouched) {
+            this.board[iCell] = BubbleState.selected;
+        }
+        console.log("pop", iCell, this.board);
+        document.getElementById(`c${iCell}`).className = this.board[iCell];
+    }
 }
 
 class SquareBoard extends Board {
     constructor(size, player1, player2) {
-        super(
-            new Array(size).fill(BubbleState.untouched).map(() => new Array(size).fill(BubbleState.untouched)),
+        super(size * size,
             player1,
             player2);
     }
 
     popBubble(iCell, elementId) {
-        const row = Math.floor(iCell / 6);
-        const column = iCell % 6;
-        if (this.board[row][column] === BubbleState.unused) {
-            return;
-        }
-        if (this.board[row][column] === BubbleState.selected) {
-            this.board[row][column] = BubbleState.untouched;
-        }
-        if (this.board[row][column] === BubbleState.untouched) {
-            this.board[row][column] = BubbleState.selected;
-        }
-        console.log("pop", iCell, row, column, this.board);
-        document.getElementById(elementId).className = this.board[row][column]
+        super.popBubble(iCell, elementId);
     }
 
     switchPlayer() {
