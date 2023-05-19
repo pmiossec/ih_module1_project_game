@@ -65,9 +65,9 @@ class Board {
          this.selectedCells = [];
     }
 
-    canAddOneMore() {
+    canAddOneMore(iCell) {
         // Max 3 cells!
-        if (this.selectedCells.length === 3) {
+        if (this.selectedCells.length === 3 && !this.selectedCells.includes(iCell)) {
             this.displayUserMessage("3 cells max!!");
             return false;
         }
@@ -86,7 +86,11 @@ class Board {
     }
 
     popBubble(iCell) {
-        this.selectedCells.push(iCell);
+        if (this.selectedCells.includes(iCell)) {
+            this.selectedCells.splice(this.selectedCells.indexOf(iCell, 1));
+        } else {
+            this.selectedCells.push(iCell);
+        }
 
         this.audio.play();
         // const row = Math.floor(iCell / 6);
@@ -96,8 +100,7 @@ class Board {
         }
         if (this.board[iCell] === BubbleState.selected) {
             this.changeCellState(iCell, BubbleState.untouched);
-        }
-        if (this.board[iCell] === BubbleState.untouched) {
+        } else if (this.board[iCell] === BubbleState.untouched) {
             this.changeCellState(iCell, BubbleState.selected);
         }
     }
@@ -105,7 +108,7 @@ class Board {
     changeCellState(iCell, newState) {
         this.board[iCell] = newState;
         console.log("cell:", iCell, "new state:", newState, "board:", this.board);
-        document.getElementById(`c${iCell}`).className = this.board[iCell];
+        document.getElementById(`c${iCell}`).className = newState;
     }
 
     undo(event) {
@@ -128,7 +131,7 @@ class SquareBoard extends Board {
     popBubble(iCell, elementId) {
         const iRow = this.getRowOfCell(iCell);
         console.log("iRow:", iRow);
-        if(!super.canAddOneMore()) {
+        if(!super.canAddOneMore(iCell)) {
             return;
         }
 
