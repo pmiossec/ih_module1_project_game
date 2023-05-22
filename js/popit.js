@@ -211,6 +211,30 @@ class LineBoard extends Board {
     }
 }
 
+class DiamondBoard extends SquareBoard {
+    constructor(size, players) {
+        super(size, players);
+
+        const limit = (size - 1) / 2;
+        for(let i = 0; i < limit; i++) {
+            super.changeCellState(0, BubbleState.unused);
+        }
+        
+    }
+
+    getRowOfCell(iCell) {
+        return Math.floor(iCell / this.lineSize);
+    }
+
+    popBubble(iCell, elementId) {
+        super.popBubble(iCell, elementId);
+    }
+
+    switchPlayer() {
+        super.switchPlayer();
+    }
+}
+
 let popGame = null;
 
 const boardChoice = document.getElementById("board-choice");
@@ -224,7 +248,12 @@ boardChoice.innerHTML = `<option value="line-5">Line 5</option>
 <option value="square-4">Square 4x4</option>
 <option value="square-5" selected>Square 5x5</option>
 <option value="square-6">Square 6x6</option>
-<option value="square-7">Square 7x7</option>`;
+<option value="square-7">Square 7x7</option>
+`;
+/* <option value="diamond-3">Diamond 3</option>
+<option value="diamond-5">Diamond 5</option>
+<option value="diamond-7">Diamond 7</option>
+<option value="diamond-9">Diamond 9</option> */
 
 boardChoice.addEventListener("change", e => boardSelectionChanged(e));
 
@@ -249,6 +278,11 @@ function boardSelectionChanged() {
         gridRows = 1;
         popGame = new LineBoard(size, getPlayers());
 
+    } else if(selectedValue.startsWith("diamond")) {
+        gridColumns = size;
+        gridRows = size;
+        popGame = new DiamondBoard(size, getPlayers());
+
     } else {
         console.log("Should not happen!!!");
     }
@@ -265,3 +299,13 @@ boardSelectionChanged();
 // }
 
 // document.getElementById('undo').addEventListener('click', undo);
+
+
+//Register Service Worker for PWA...
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/js/sw.js').then(function() {
+        console.log('service worker registration complete')
+    }, function(e) {
+        console.log('service worker registration failure:', e)
+    })
+}
