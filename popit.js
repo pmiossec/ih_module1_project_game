@@ -19,6 +19,7 @@ class Board {
         }
         this.activePlayer = 1;
         this.switchCurrentPlayer();
+        this.displayScore();
         this.audio = new Audio('./sound/bubble-popping.mp3');
         this.messageElement =  document.getElementById("user-message");
     }
@@ -42,6 +43,10 @@ class Board {
         }
 
         return cells;
+    }
+
+    displayScore() {
+        document.getElementById("score").innerText =  `${this.players[0].name}: ${this.players[0].wins} - ${this.players[1].name}: ${this.players[1].wins}`;
     }
     
     switchCurrentPlayer() {
@@ -82,8 +87,8 @@ class Board {
         this.selectedCells = [];
 
         if (this.isGameFinished()) {
-
             this.resetBoard();
+            this.displayScore();
             return;
         }
     }
@@ -114,7 +119,8 @@ class Board {
     isGameFinished() {
         if(this.board.filter(c => c === BubbleState.untouched).length === 1)
         {
-            this.displayUserMessage(`${this.players[this.activePlayer].name} lose!!!`)
+            this.players[(this.activePlayer + 1 % 2)].wins++;
+            this.displayUserMessage(`${this.players[this.activePlayer].name} lose!!!`);
             return true;
         }
 
@@ -228,7 +234,7 @@ boardChoice.innerHTML = `<option value="line-5">Line 5</option>
 boardChoice.addEventListener("change", e => boardSelectionChanged(e));
 
 function getPlayers() {
- return [{ name: "Phil"}, {name: "Mia"}]
+ return [{ name: "Phil", wins: 0 }, {name: "Mia", wins: 0 }];
 }
 
 function boardSelectionChanged() {
