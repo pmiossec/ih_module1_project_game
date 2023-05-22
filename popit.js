@@ -263,8 +263,8 @@ function boardSelectionChanged() {
 
 boardSelectionChanged();
 
-function undo(event) {
-    popGame.undo(event)
-}
+// function undo(event) {
+//     popGame.undo(event)
+// }
 
-document.getElementById('undo').addEventListener('click', undo);
+// document.getElementById('undo').addEventListener('click', undo);
