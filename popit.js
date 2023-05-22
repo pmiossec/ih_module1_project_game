@@ -16,6 +16,7 @@ class Board {
         this.player2 = player2;
         this.setCurrentPlayer(player1);
         this.audio = new Audio('./sound/bubble-popping.mp3');
+        this.messageElement =  document.getElementById("user-message");
     }
 
     createCells(cellsCount) {
@@ -51,6 +52,11 @@ class Board {
 
     displayUserMessage(message) {
         console.log(message);
+        this.messageElement.innerText = message;
+    }
+
+    clearUserMessage() {
+        this.messageElement.innerHTML = "&nbsp;";
     }
     
     switchPlayer() {
@@ -100,6 +106,7 @@ class Board {
     }
 
     popBubble(iCell) {
+        this.clearUserMessage();
         if (this.selectedCells.includes(iCell)) {
             this.selectedCells.splice(this.selectedCells.indexOf(iCell, 1));
         } else {
