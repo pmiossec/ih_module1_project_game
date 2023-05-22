@@ -94,7 +94,6 @@ class Board {
     }
 
     resetBoard() {
-
         for (let iCell = 0; iCell < this.board.length; iCell++) {
             const cell = this.board[iCell];
             if (cell !== BubbleState.unused) {
@@ -130,26 +129,24 @@ class Board {
     }
 
     popBubble(iCell) {
-        this.clearUserMessage();
-        if (this.selectedCells.includes(iCell)) {
-            this.selectedCells.splice(this.selectedCells.indexOf(iCell, 1));
-        } else {
-            this.selectedCells.push(iCell);
-        }
-
-        console.log("this.selectedCells", this.selectedCells);
-
-        // const row = Math.floor(iCell / 6);
-        // const column = iCell % 6;
-        if (this.board[iCell] === BubbleState.unused) {
+        if (this.board[iCell] === BubbleState.unused
+             || this.board[iCell] === BubbleState.popped) {
             return;
         }
-        if (this.board[iCell] === BubbleState.selected) {
+
+        this.clearUserMessage();
+
+        if (this.selectedCells.includes(iCell)) {
+            this.selectedCells.splice(this.selectedCells.indexOf(iCell), 1);
             this.changeCellState(iCell, BubbleState.untouched);
-        } else if (this.board[iCell] === BubbleState.untouched) {
-            this.changeCellState(iCell, BubbleState.selected);
-            //this.audio.play();
+            console.log("this.selectedCells (after remove)", this.selectedCells);
+        return;
         }
+
+        this.selectedCells.push(iCell);
+        console.log("this.selectedCells (after add)", this.selectedCells);
+        this.changeCellState(iCell, BubbleState.selected);
+        //this.audio.play();
     }
 
     changeCellState(iCell, newState) {
