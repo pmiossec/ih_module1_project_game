@@ -79,10 +79,25 @@ class Board {
 
         this.switchCurrentPlayer();
 
+        this.selectedCells = [];
+
         if (this.isGameFinished()) {
+
+            this.resetBoard();
             return;
         }
-        
+    }
+
+    resetBoard() {
+
+        for (let iCell = 0; iCell < this.board.length; iCell++) {
+            const cell = this.board[iCell];
+            if (cell !== BubbleState.unused) {
+                this.board[iCell] = BubbleState.untouched;
+                this.changeCellState(iCell, BubbleState.untouched);
+            }
+        }
+
         this.selectedCells = [];
     }
 
@@ -114,7 +129,8 @@ class Board {
             this.selectedCells.push(iCell);
         }
 
-        this.audio.play();
+        console.log("this.selectedCells", this.selectedCells);
+
         // const row = Math.floor(iCell / 6);
         // const column = iCell % 6;
         if (this.board[iCell] === BubbleState.unused) {
@@ -124,6 +140,7 @@ class Board {
             this.changeCellState(iCell, BubbleState.untouched);
         } else if (this.board[iCell] === BubbleState.untouched) {
             this.changeCellState(iCell, BubbleState.selected);
+            //this.audio.play();
         }
     }
 

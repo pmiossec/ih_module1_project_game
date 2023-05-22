@@ -17,17 +17,18 @@
     border: 1px blue solid;
     width: var(--cell-size);
     height: var(--cell-size);
+    background-color: transparent;
 }
 
-.popped{
+#board div.popped{
     background-color: gray;
 }
 
-.selected{
+#board div.selected{
     background-color: lightgray;
 }
 
-.untouched{
+#board div.untouched{
     background-color: rgb(37, 148, 245);
 }
 
