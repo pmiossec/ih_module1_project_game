@@ -98,7 +98,7 @@ class Board {
 
         this.switchCurrentPlayer();
 
-        this.selectedCells = [];
+        // this.selectedCells = [];
 
         if (this.isGameFinished()) {
             this.resetBoard();
@@ -205,28 +205,32 @@ class LineBoard extends Board {
     }
 }
 
-class DiamondBoard extends SquareBoard {
+class DiamondBoard extends Board {
     constructor(size, players) {
 
         const board = [];
         const limit = (size - 1) / 2;
-        for(let i = 0; i < limit; i++) {
-            super.changeCellState(0, BubbleState.unused);
+        for (let iRow = 0; iRow < size; iRow++) {
+            board[iRow] = [];
+            for (let iCol = 0; iCol < size; iCol++) {
+                board[iRow][iCol] = BubbleState.untouched;
+            }
         }
-        super(size, players);
+
+        for(let iRow = 0; iRow < limit; iRow++) {
+            for (let iCol = 0; iCol < limit - iRow; iCol++) {
+                board[iRow][iCol] = BubbleState.unused; //top left
+                board[iRow][size - iCol -1] = BubbleState.unused; //top right
+                board[size-iRow-1][iCol] = BubbleState.unused; //bottom left
+                board[size-iRow-1][size - iCol -1] = BubbleState.unused; //bottom right
+            }
+            BubbleState.unused;
+        }
+
+        console.log("Diamond board", board)
+
+        super(board, players);
     }
-
-    // getRowOfCell(iCell) {
-    //     return Math.floor(iCell / this.lineSize);
-    // }
-
-    // popBubble(iCell, elementId) {
-    //     super.popBubble(iCell, elementId);
-    // }
-
-    // switchPlayer() {
-    //     super.switchPlayer();
-    // }
 }
 
 class FreeBoard extends Board {
@@ -262,12 +266,14 @@ boardChoice.innerHTML = `<option value="line-5">Line 5</option>
 <option value="square-5" selected>Square 5x5</option>
 <option value="square-6">Square 6x6</option>
 <option value="square-7">Square 7x7</option>
-<option value="custom1">Custom1</option>
-`;
-/* <option value="diamond-3">Diamond 3</option>
+<option value="diamond-3">Diamond 3</option>
 <option value="diamond-5">Diamond 5</option>
 <option value="diamond-7">Diamond 7</option>
-<option value="diamond-9">Diamond 9</option> */
+<option value="diamond-9">Diamond 9</option>
+<option value="diamond-11">Diamond 11</option>
+<option value="custom1">Custom1</option>
+`;
+/* */
 
 boardChoice.addEventListener("change", e => boardSelectionChanged(e));
 
