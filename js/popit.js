@@ -348,6 +348,20 @@ class FreeBoard extends Board {
     }
 }
 
+class RandomBoard extends Board {
+    constructor(size, players) {
+        const board = [];
+        for(let iRow = 0; iRow < size; iRow++) {
+            board[iRow] = [];
+            for(let iCol = 0; iCol < size; iCol++) {
+                board[iRow][iCol] = Math.random() >= 0.5 ? BubbleState.untouched : BubbleState.unused;
+            }
+        }
+
+        super(board, players);
+    }
+}
+
 let popGame = null;
 
 const boardChoice = document.getElementById("board-choice");
@@ -368,8 +382,9 @@ boardChoice.innerHTML = `<option value="line-5">Line 5</option>
 <option value="diamond-9">Diamond 9</option>
 <option value="diamond-11">Diamond 11</option>
 <option value="custom1">Custom1</option>
+<option value="random-6">Random 6x6</option>
 `;
-/* */
+
 
 boardChoice.addEventListener("change", e => boardSelectionChanged(e));
 
@@ -407,6 +422,10 @@ x_x
 _x_`, getPlayers());
         gridRows = popGame.rowsCount;
         gridColumns = popGame.colsCount;
+    } else if(selectedValue.startsWith("random"))  {
+        gridColumns = size;
+        gridRows = size;
+        popGame = new RandomBoard(size, getPlayers());
     } else {
         console.log("Should not happen!!!");
     }
