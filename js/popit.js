@@ -7,6 +7,18 @@ const BubbleState = {
     unused: "unused",
 }
 
+const PlayerType = {
+    human: "human",
+    computerEasy : "computerEasy",
+    computerHard : "computerHard",
+}
+
+const MessageType = {
+    info: "info",
+    warning: "warning",
+    error : "error",
+}
+
 class Board {
     constructor(board, players) {
         this.board = board;
@@ -61,7 +73,7 @@ class Board {
         currentPlayerLabel.textContent = `Player ${this.activePlayer + 1} : ${player.name}`;
     }
 
-    displayUserMessage(message) {
+    displayUserMessage(message, type = "info") {
         console.log(message);
         this.messageElement.innerText = message;
     }
@@ -76,6 +88,10 @@ class Board {
 
     countSelected() {
         return this.countCellsWithState(BubbleState.selected);
+    }
+
+    currentPlayer() {
+        return this.players[this.activePlayer];
     }
 
     switchPlayer() {
@@ -105,6 +121,92 @@ class Board {
             this.displayScore();
             return;
         }
+
+        if (this.currentPlayer().type === PlayerType.human ) {
+            return;
+        }
+
+        if (this.currentPlayer().type === PlayerType.computerEasy ) {
+            this.PlayAsComputerEasy();
+        }
+
+        this.PlayAsComputerHard();
+    }
+
+    rand(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    PlayAsComputerEasy(){
+        const countUntouched = this.countCellsWithState(BubbleState.untouched);
+        if (countUntouched <= 5) {
+            // Will try to let only 2
+            if (countUntouched >= 3 && this.TryToSelectElements(countUntouched - 2)) {
+                this.switchPlayer();
+                return;
+            }
+
+            this.TryToSelectElements(1);
+            this.switchPlayer();
+            return;
+        }
+
+        let rand = [1, 2, 3];
+        do {
+            const iRand = this.rand(rand.length);
+            const count = rand[iRand];
+            rand.splice(iRand, 1)
+            if (this.TryToSelectElements(count)) {
+                this.switchPlayer();
+                return;
+            }
+
+        } while(rand.length != 0)
+    }
+
+    PlayAsComputerHard(){
+        // if (this.countCellsWithState(BubbleState.untouched <= 5)) {
+        //     // Will try to let only 2
+        //     if (this.TryToSelectElements(3)) {
+        //         this.switchPlayer();
+        //         return;
+        //     }
+
+        //     this.TryToSelectElements(1);
+        //     this.switchPlayer();
+        //     return;
+        // }
+
+        // let rand = [1, 2, 3];
+        // do {
+        //     const iRand = this.rand(rand.length);
+        //     const count = rand[iRand];
+        //     rand = rand.splice(iRand)
+        //     if (this.TryToSelectElements(count)) {
+        //         this.switchPlayer();
+        //         return;
+        //     }
+
+        // } while(rand.length != 0)
+    }
+
+    TryToSelectElements(count) {
+        for (let iRow = 0; iRow < this.board.length; iRow++) {
+            const row = this.board[iRow];
+            if (row.filter(e => e === BubbleState.untouched).length >= count) {
+                for (let iCol = 0; iCol < row.length; iCol++) {
+                    if(row[iCol] === BubbleState.untouched) {
+                        count--;
+                        this.changeCellState(iRow, iCol, BubbleState.selected);
+                        if(count === 0) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     resetBoard() {
@@ -158,6 +260,10 @@ class Board {
         if (countSelected !== 0 && this.board[iRow].filter(e => e === BubbleState.selected).length === 0) {
             this.displayUserMessage("All the cells selected should be on the same line!");
             return;
+        }
+
+        if (this.countCellsWithState(BubbleState.untouched) === 0) {
+            this.displayUserMessage("Are you sure that' what you want to do?", )
         }
 
         // this.selectedCells.push(iCell);
@@ -278,7 +384,8 @@ boardChoice.innerHTML = `<option value="line-5">Line 5</option>
 boardChoice.addEventListener("change", e => boardSelectionChanged(e));
 
 function getPlayers() {
- return [{ name: "Phil", wins: 0 }, {name: "Mia", wins: 0 }];
+//  return [{ name: "Phil", wins: 0, type: PlayerType.human }, {name: "Mia", wins: 0, type: PlayerType.human }];
+ return [{ name: "Phil", wins: 0, type: PlayerType.computerEasy }, {name: "Computer", wins: 0, type: PlayerType.computerEasy }];
 }
 
 function boardSelectionChanged() {
