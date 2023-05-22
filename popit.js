@@ -119,8 +119,10 @@ class Board {
     isGameFinished() {
         if(this.board.filter(c => c === BubbleState.untouched).length === 1)
         {
-            this.players[(this.activePlayer + 1 % 2)].wins++;
-            this.displayUserMessage(`${this.players[this.activePlayer].name} lose!!!`);
+            const iWinner = (this.activePlayer + 1) % 2;
+            const winner = this.players[iWinner];
+            winner.wins++;
+            this.displayUserMessage(`🎉 ${winner.name} won!!! 🎉`);
             return true;
         }
 
@@ -163,15 +165,13 @@ class Board {
 }
 
 class SquareBoard extends Board {
-    constructor(size, player1, player2) {
-        super(size * size,
-            player1,
-            player2);
-        this.squareSize = size;
+    constructor(size, players) {
+        super(size * size, players);
+        this.lineSize = size;
     }
 
     getRowOfCell(iCell) {
-        return Math.floor(iCell / this.squareSize);
+        return Math.floor(iCell / this.lineSize);
     }
 
     popBubble(iCell, elementId) {
@@ -196,10 +196,8 @@ class SquareBoard extends Board {
 
 
 class LineBoard extends Board {
-    constructor(size, player1, player2) {
-        super(size,
-            player1,
-            player2);
+    constructor(size, players) {
+        super(size, players);
         this.lineSize = size;
     }
 
