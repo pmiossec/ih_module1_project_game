@@ -1,14 +1,15 @@
 :root {
     --cell-size: 15vw;
-    --grid-size: 6;
+    --grid-columns: 6;
+    --grid-rows: 6;
 }
 
 
 
 #board {
     display: grid;
-    grid-template-columns: repeat(var(--grid-size), var(--cell-size) [col-start]);
-    grid-template-rows: repeat(var(--grid-size), var(--cell-size) [col-start]);
+    grid-template-columns: repeat(var(--grid-columns), var(--cell-size) [col-start]);
+    grid-template-rows: repeat(var(--grid-rows), var(--cell-size) [col-start]);
     border-radius: 100px;
 }
 

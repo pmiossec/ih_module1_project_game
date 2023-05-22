@@ -171,37 +171,72 @@ class SquareBoard extends Board {
 }
 
 
+class LineBoard extends Board {
+    constructor(size, player1, player2) {
+        super(size,
+            player1,
+            player2);
+        this.lineSize = size;
+    }
+
+    popBubble(iCell, elementId) {
+        if(!super.canAddOneMore(iCell)) {
+            return;
+        }
+
+        super.popBubble(iCell, elementId);
+    }
+
+    switchPlayer() {
+        super.switchPlayer();
+    }
+}
+
 let popGame = null;
 
 const boardChoice = document.getElementById("board-choice");
-boardChoice.innerHTML = `<option value="square-3">Square 3x3</option>
+boardChoice.innerHTML = `<option value="line-5">Line 5</option>
+<option value="line-6">Line 6</option>
+<option value="line-7">Line 7</option>
+<option value="line-8">Line 8</option>
+<option value="line-9">Line 9</option>
+<option value="line-10">Line 10</option>
+<option value="square-3">Square 3x3</option>
 <option value="square-4">Square 4x4</option>
-<option value="square-5">Square 5x5</option>
+<option value="square-5" selected>Square 5x5</option>
 <option value="square-6">Square 6x6</option>
 <option value="square-7">Square 7x7</option>`;
 
 boardChoice.addEventListener("change", e => boardSelectionChanged(e));
 
-function boardSelectionChanged(e) {
+function getPlayers() {
+ return [{ name: "Phil"}, {name: "Mia"}]
+}
 
-    console.log("change event", e);
-    let gridSize;
-    if(!e) {
-        gridSize = 3;
-        popGame = new SquareBoard(gridSize, { name: "Phil"}, {name: "Mia"});
-    }
-    else{
-        let selectedValue = e.target.value;
-        console.log("selectedValue", selectedValue);
-        if(selectedValue.startsWith("square"))
-        {
-            gridSize = +selectedValue[selectedValue.length-1];
-            popGame = new SquareBoard(gridSize, { name: "Phil"}, {name: "Mia"});
-        }
+function boardSelectionChanged() {
+    let gridRows;
+    let gridColumns;
+    let selectedValue = document.getElementById("board-choice").value;
+    console.log("selectedValue", selectedValue);
+    const size = +selectedValue[selectedValue.length-1];
+    if(selectedValue.startsWith("square"))
+    {
+        gridRows = size;
+        gridColumns = size;
+        console.log("Creating board of size", gridRows);
+        popGame = new SquareBoard(gridRows, { name: "Phil"}, {name: "Mia"});
+    } else if(selectedValue.startsWith("line")) {
+        gridColumns = size;
+        gridRows = 1;
+        popGame = new LineBoard(size, { name: "Phil"}, {name: "Mia"});
+
+    } else {
+        console.log("Should not happen!!!");
     }
 
-    document.documentElement.style.setProperty('--cell-size', `${Math.floor(80/gridSize)}vw`);
-    document.documentElement.style.setProperty('--grid-size', gridSize);
+    document.documentElement.style.setProperty('--cell-size', `50px`);
+    document.documentElement.style.setProperty('--grid-rows', gridRows);
+    document.documentElement.style.setProperty('--grid-columns', gridColumns);
 }
 
 boardSelectionChanged();
