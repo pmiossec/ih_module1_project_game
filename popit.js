@@ -21,6 +21,11 @@ class Board {
     createCells(cellsCount) {
         const cells = []
         const boardDiv = document.getElementById("board");
+
+        while (boardDiv.firstChild) {
+            boardDiv.removeChild(boardDiv.firstChild);
+        }
+
         for (let i = 0; i < cellsCount; i++) {
             cells[i] = BubbleState.untouched;
             let div = document.createElement("div");
@@ -137,6 +142,7 @@ class SquareBoard extends Board {
     getRowOfCell(iCell) {
         return Math.floor(iCell / this.squareSize);
     }
+
     popBubble(iCell, elementId) {
         const iRow = this.getRowOfCell(iCell);
         console.log("iRow:", iRow);
@@ -157,14 +163,44 @@ class SquareBoard extends Board {
     }
 }
 
-const gridSize = 3;
 
-const popGame = new SquareBoard(gridSize, { name: "Phil"}, {name: "Mia"});
+let popGame = null;
 
-document.documentElement.style.setProperty('--cell-size', `${Math.floor(100/gridSize)}vw`);
-document.documentElement.style.setProperty('--grid-size', gridSize);
+const boardChoice = document.getElementById("board-choice");
+boardChoice.innerHTML = `<option value="square-3">Square 3x3</option>
+<option value="square-4">Square 4x4</option>
+<option value="square-5">Square 5x5</option>
+<option value="square-6">Square 6x6</option>
+<option value="square-7">Square 7x7</option>`;
+
+boardChoice.addEventListener("change", e => boardSelectionChanged(e));
+
+function boardSelectionChanged(e) {
+
+    console.log("change event", e);
+    let gridSize;
+    if(!e) {
+        gridSize = 3;
+        popGame = new SquareBoard(gridSize, { name: "Phil"}, {name: "Mia"});
+    }
+    else{
+        let selectedValue = e.target.value;
+        console.log("selectedValue", selectedValue);
+        if(selectedValue.startsWith("square"))
+        {
+            gridSize = +selectedValue[selectedValue.length-1];
+            popGame = new SquareBoard(gridSize, { name: "Phil"}, {name: "Mia"});
+        }
+    }
+
+    document.documentElement.style.setProperty('--cell-size', `${Math.floor(80/gridSize)}vw`);
+    document.documentElement.style.setProperty('--grid-size', gridSize);
+}
+
+boardSelectionChanged();
 
 function undo(event) {
     popGame.undo(event)
 }
+
 document.getElementById('undo').addEventListener('click', undo);
