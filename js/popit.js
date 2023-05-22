@@ -164,30 +164,20 @@ class Board {
         } while(rand.length != 0)
     }
 
-    PlayAsComputerHard(){
-        // if (this.countCellsWithState(BubbleState.untouched <= 5)) {
-        //     // Will try to let only 2
-        //     if (this.TryToSelectElements(3)) {
-        //         this.switchPlayer();
-        //         return;
-        //     }
+    PlayAsComputerHard() {
+        const countUntouched = this.countCellsWithState(BubbleState.untouched);
+        const target = (countUntouched - 1 ) % 4;
 
-        //     this.TryToSelectElements(1);
-        //     this.switchPlayer();
-        //     return;
-        // }
-
-        // let rand = [1, 2, 3];
-        // do {
-        //     const iRand = this.rand(rand.length);
-        //     const count = rand[iRand];
-        //     rand = rand.splice(iRand)
-        //     if (this.TryToSelectElements(count)) {
-        //         this.switchPlayer();
-        //         return;
-        //     }
-
-        // } while(rand.length != 0)
+        if (target !== 0) {
+            if (this.TryToSelectElements(target)) {
+                this.switchPlayer();
+                return;
+            }
+        }
+        
+        this.TryToSelectElements(1);
+        this.switchPlayer();
+        return;
     }
 
     TryToSelectElements(count) {
@@ -385,7 +375,7 @@ boardChoice.addEventListener("change", e => boardSelectionChanged(e));
 
 function getPlayers() {
 //  return [{ name: "Phil", wins: 0, type: PlayerType.human }, {name: "Mia", wins: 0, type: PlayerType.human }];
- return [{ name: "Phil", wins: 0, type: PlayerType.computerEasy }, {name: "Computer", wins: 0, type: PlayerType.computerEasy }];
+ return [{ name: "Phil", wins: 0, type: PlayerType.human }, {name: "Computer", wins: 0, type: PlayerType.computerHard }];
 }
 
 function boardSelectionChanged() {
