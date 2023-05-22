@@ -24,5 +24,10 @@
     <div id="board">
     </div>
     <script src="./js/popit.js"></script>
+    <script>
+    if (navigator.serviceWorker) {
+        navigator.serviceWorker.register('./sw.js', { scope: '/ih_module1_project_game/' })
+    }
+    </script>
 </body>
 </html>

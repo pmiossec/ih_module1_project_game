@@ -2,12 +2,12 @@
     "name": "Pop It!",
     "short_name": "popit_game",
     "description": "A 2 players game where you should pop bubbles cleverly",
-    "start_url": "/",
+    "scope": "/ih_module1_project_game/",
+    "start_url": "/ih_module1_project_game/",
     "lang": "en-EN",
     "display": "fullscreen",
     "theme_color": "cornflowerblue",
     "background_color": "cornflowerblue",
-    "scope": "/",
     "icons": [
       {
         "src": "./images/bubble_favicon.png",

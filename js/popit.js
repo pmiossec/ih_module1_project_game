@@ -300,12 +300,3 @@ boardSelectionChanged();
 
 // document.getElementById('undo').addEventListener('click', undo);
 
-
-//Register Service Worker for PWA...
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/js/sw.js').then(function() {
-        console.log('service worker registration complete')
-    }, function(e) {
-        console.log('service worker registration failure:', e)
-    })
-}
