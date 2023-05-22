@@ -77,13 +77,13 @@ class Board {
 
         // console.log("cell processed!!!");
 
+        this.switchCurrentPlayer();
+
         if (this.isGameFinished()) {
             return;
         }
-
-        this.switchCurrentPlayer();
         
-         this.selectedCells = [];
+        this.selectedCells = [];
     }
 
     canAddOneMore(iCell) {
@@ -97,7 +97,7 @@ class Board {
     }
 
     isGameFinished() {
-        if(this.board.filter(c => c === BubbleState.untouched).length === 0)
+        if(this.board.filter(c => c === BubbleState.untouched).length === 1)
         {
             this.displayUserMessage(`${this.players[this.activePlayer].name} lose!!!`)
             return true;
