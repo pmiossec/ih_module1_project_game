@@ -8,13 +8,17 @@ const BubbleState = {
 }
 
 class Board {
-    constructor(cellsCount, player1, player2) {
+    constructor(cellsCount, players) {
         this.board = this.createCells(cellsCount);
 
         this.selectedCells = [];
-        this.player1 = player1;
-        this.player2 = player2;
-        this.setCurrentPlayer(player1);
+
+        this.players = players;
+        if(players.length === 1) {
+            this.players.push({name: "Computer"});
+        }
+        this.activePlayer = 1;
+        this.switchCurrentPlayer();
         this.audio = new Audio('./sound/bubble-popping.mp3');
         this.messageElement =  document.getElementById("user-message");
     }
@@ -35,19 +39,18 @@ class Board {
             div.addEventListener("click", () => this.popBubble(i));
             boardDiv.appendChild(div);
             // <div id="c0" class="untouched" onclick="javascript:popGame.popBubble(0)"></div>
-
-
         }
 
         return cells;
     }
     
-    setCurrentPlayer(player) {
-        this.activePlayer = player;
+    switchCurrentPlayer() {
+        this.activePlayer = (this.activePlayer+1) % 2;
+        const player = this.players[this.activePlayer];
         console.log("Current player will be:", player)
         const currentPlayerLabel = document.getElementById("currentPlayer");
         console.log("currentPlayerLabel", currentPlayerLabel);
-        currentPlayerLabel.textContent = player.name;
+        currentPlayerLabel.textContent = `Player ${this.activePlayer + 1} : ${player.name}`;
     }
 
     displayUserMessage(message) {
@@ -78,9 +81,7 @@ class Board {
             return;
         }
 
-        this.setCurrentPlayer(this.activePlayer == this.player1
-            ? this.player2
-            : this.player1);
+        this.switchCurrentPlayer();
         
          this.selectedCells = [];
     }
@@ -98,7 +99,7 @@ class Board {
     isGameFinished() {
         if(this.board.filter(c => c === BubbleState.untouched).length === 0)
         {
-            this.displayUserMessage(`${this.activePlayer.name} loose!!!`)
+            this.displayUserMessage(`${this.players[this.activePlayer].name} lose!!!`)
             return true;
         }
 
@@ -224,11 +225,11 @@ function boardSelectionChanged() {
         gridRows = size;
         gridColumns = size;
         console.log("Creating board of size", gridRows);
-        popGame = new SquareBoard(gridRows, { name: "Phil"}, {name: "Mia"});
+        popGame = new SquareBoard(gridRows, getPlayers());
     } else if(selectedValue.startsWith("line")) {
         gridColumns = size;
         gridRows = 1;
-        popGame = new LineBoard(size, { name: "Phil"}, {name: "Mia"});
+        popGame = new LineBoard(size, getPlayers());
 
     } else {
         console.log("Should not happen!!!");
