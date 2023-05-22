@@ -240,7 +240,7 @@ function boardSelectionChanged() {
     let gridColumns;
     let selectedValue = document.getElementById("board-choice").value;
     console.log("selectedValue", selectedValue);
-    const size = +selectedValue[selectedValue.length-1];
+    const size = +selectedValue.slice(selectedValue.lastIndexOf('-') + 1);
     if(selectedValue.startsWith("square"))
     {
         gridRows = size;
