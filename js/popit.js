@@ -410,10 +410,15 @@ boardChoice.innerHTML = `<option value="line-5">Line 5</option>
 <option value="random-6">Random 6x6</option>
 `;
 
-
 function getPlayers() {
-//  return [{ name: "Phil", wins: 0, type: PlayerType.human }, {name: "Mia", wins: 0, type: PlayerType.human }];
- return [ settings.player1, settings.player2];
+    const player2 = {...settings.player2 };
+    if(player2.type == PlayerType.computerEasy){
+        player2.name = "Computer (easy)";
+    } else if(player2.type == PlayerType.computerHard) {
+        player2.name = "Computer (hard)";
+    }
+
+    return [ settings.player1, player2];
 }
 
 function settingsChanged() {
@@ -513,19 +518,17 @@ document.querySelectorAll('input[name="player2-type"]').forEach((elem) => {
     elem.addEventListener("change", function(event) {
         console.log("type changed", event.target.value);
         settings.player2.type = event.target.value;
+        settingsChanged();
         switch(settings.player2.type)
         {
             case PlayerType.human:
                 settings.player2.name = document.getElementById("player2-name").value || "You";
                 break;
             case PlayerType.computerEasy:
-                settings.player2.name = "Computer (easy)";
                 break;
             case PlayerType.computerHard:
-                settings.player2.name = "Computer (hard)";
                 break;
         }
-        settingsChanged();
     });
 });
 
