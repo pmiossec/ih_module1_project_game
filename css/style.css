@@ -24,13 +24,20 @@ h1 {
     top: 20px;
     right: 20px;
 }
-.menu button {
+
+button {
     width: 40px;
     height: 40px;
     color: white;
     background-color: transparent;
     border-radius: 50%;
     border: 2px solid white;
+}
+
+#bth-switch-player {
+    width: 100px;
+    border-radius: 0;
+    margin: 10px;;
 }
 
 #board {
