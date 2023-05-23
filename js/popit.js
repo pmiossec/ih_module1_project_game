@@ -150,6 +150,7 @@ class Board {
 
         if (this.currentPlayer().type === PlayerType.computerEasy ) {
             this.PlayAsComputerEasy();
+            return;
         }
 
         this.PlayAsComputerHard();
