@@ -17,6 +17,7 @@ const MessageType = {
     info: "info",
     warning: "warning",
     error : "error",
+    congrats : "congrats",
 }
 
 class Board {
@@ -76,6 +77,7 @@ class Board {
     displayUserMessage(message, type = "info") {
         console.log(message);
         this.messageElement.innerText = message;
+        this.messageElement.className = type;
     }
 
     clearUserMessage() {
@@ -96,12 +98,12 @@ class Board {
 
     switchPlayer() {
         if (this.countSelected() === 0) {
-            this.displayUserMessage("You have to select at least a cell");
+            this.displayUserMessage("You have to select at least a cell", MessageType.warning);
             return;
         }
 
-        // console.log("start processing cells...");
-        
+        this.clearUserMessage();
+
         for (let iRow = 0; iRow < this.board.length; iRow++) {
             for (let iCol = 0; iCol < this.board[iRow].length; iCol++) {
                 if(this.board[iRow][iCol] === BubbleState.selected) {
@@ -109,8 +111,6 @@ class Board {
                 }
             }
         }
-
-        // console.log("cell processed!!!");
 
         this.switchCurrentPlayer();
 
@@ -217,7 +217,7 @@ class Board {
             const iWinner = (this.activePlayer + 1) % 2;
             const winner = this.players[iWinner];
             winner.wins++;
-            this.displayUserMessage(`🎉 ${winner.name} won!!! 🎉`);
+            this.displayUserMessage(`🎉 ${winner.name} won!!! 🎉`, MessageType.congrats);
             return true;
         }
 
@@ -242,18 +242,18 @@ class Board {
         const countSelected = this.countSelected();
         console.log("count selected", countSelected);
         if (countSelected === 3) {
-            this.displayUserMessage("3 cells max!!");
+            this.displayUserMessage("3 cells max!!", MessageType.warning);
             return false;
         }
 
         //TODO: check cell is on same line
         if (countSelected !== 0 && this.board[iRow].filter(e => e === BubbleState.selected).length === 0) {
-            this.displayUserMessage("All the cells selected should be on the same line!");
+            this.displayUserMessage("All the cells selected should be on the same line!", MessageType.error);
             return;
         }
 
         if (this.countCellsWithState(BubbleState.untouched) === 0) {
-            this.displayUserMessage("Are you sure that' what you want to do?", )
+            this.displayUserMessage("Are you sure that' what you want to do?", MessageType.warning);
         }
 
         // this.selectedCells.push(iCell);
