@@ -508,7 +508,7 @@ soundSetting.addEventListener('change',  (e) => {
 });
 
 
-
+document.getElementById(settings.player2.type).checked = true;
 document.querySelectorAll('input[name="player2-type"]').forEach((elem) => {
     elem.addEventListener("change", function(event) {
         console.log("type changed", event.target.value);
