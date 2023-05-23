@@ -23,6 +23,8 @@ const MessageType = {
 let settings = localStorage.getItem("settings");
 const isFirstLoading = settings === null;
 
+let easterEgg = 0;
+
 if (isFirstLoading) {
     settings = {
         playSound: true,
@@ -533,4 +535,11 @@ document.querySelectorAll('input[name="player2-type"]').forEach((elem) => {
 });
 
 settingsChanged();
+
+document.getElementsByTagName("h1")[0].addEventListener('click', () => {
+    easterEgg++;
+    if (easterEgg === 10) {
+        location.replace('./easter_egg.html')
+    }
+})
 
