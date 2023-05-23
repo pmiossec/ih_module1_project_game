@@ -2,13 +2,42 @@
     --cell-size: 15vw;
     --grid-columns: 6;
     --grid-rows: 6;
+    --back-color: #11191f;
 }
 
 body {
+    color: white;
     background-color: #11191f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    margin: 2vw;
+    margin-bottom: 6vw;
+}
+
+.menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.menu button {
+    width: 40px;
+    height: 40px;
+    color: white;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 2px solid white;
 }
 
 #board {
+    /* width: 80vw; */
+    /* height: 80vw; */
+    margin-left: auto;
+    margin-right: auto;
     display: grid;
     grid-template-columns: repeat(var(--grid-columns), var(--cell-size) [col-start]);
     grid-template-rows: repeat(var(--grid-rows), var(--cell-size) [col-start]);
@@ -36,6 +65,8 @@ body {
     /* background: rgba(255, 255, 255, 0.1); */
     width: var(--cell-size);
     height: var(--cell-size);
+    max-width: 100px;
+    max-height: 100px;
     border-radius: 50%;
     /* position: absolute; */
     box-shadow: 0 0 25px white inset;
@@ -73,4 +104,65 @@ body {
 .congrats {
     color: greenyellow;
     font-weight: bold;
+}
+
+.popup {
+    top: 50px;
+    position: fixed;
+    visibility: hidden;
+    width: 80vw;
+    height: 80vh; 
+    top: 5vh;
+    left: 10vw;
+    border: 1px solid white;
+    background-color: var(--back-color);
+}
+
+.popup.visible {
+    visibility: visible;
+}
+
+.popup>:first-child {
+    border-bottom: 1px solid white;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.popup button {
+    color: white;
+    background-color: transparent;
+    font-size: x-large;
+    margin: 5px;
+    border: none;
+    text-decoration: none;
+}
+
+#settings {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#settings>* {
+    margin: 20px;
+    /* padding: 100px; */
+}
+
+#help-popup p {
+
+    font-size: x-large;
+}
+
+.content {
+    padding: 50px;
+    height: 80%;
+}
+
+.content input[type="text"]{
+    width: 60%;
+    max-width: 300px;
+}
+.content fieldset{
+    width: 60%;
+    max-width: 300px;
 }

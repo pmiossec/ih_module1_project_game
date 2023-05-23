@@ -98,7 +98,7 @@ class Board {
 
     switchPlayer() {
         if (this.countSelected() === 0) {
-            this.displayUserMessage("You have to select at least a cell", MessageType.warning);
+            this.displayUserMessage("You have to select at least one cell", MessageType.warning);
             return;
         }
 
@@ -430,7 +430,8 @@ _x_`, getPlayers());
         console.log("Should not happen!!!");
     }
 
-    document.documentElement.style.setProperty('--cell-size', `50px`);
+    const width = Math.min(Math.floor(document.documentElement.clientWidth / gridColumns), 80);
+    document.documentElement.style.setProperty('--cell-size', `${width}px`);
     document.documentElement.style.setProperty('--grid-rows', gridRows);
     document.documentElement.style.setProperty('--grid-columns', gridColumns);
 }
@@ -442,4 +443,16 @@ boardSelectionChanged();
 // }
 
 // document.getElementById('undo').addEventListener('click', undo);
+function handleHelpDisplay() {
+    document.getElementById("help-popup").classList.toggle("visible");
+}
+
+function handleSettingsDisplay() {
+    document.getElementById("settings-popup").classList.toggle("visible");
+}
+
+document.getElementById("help-button").addEventListener('click', handleHelpDisplay);
+document.getElementById("help-close").addEventListener('click', handleHelpDisplay);
+document.getElementById("settings-button").addEventListener('click', handleSettingsDisplay);
+document.getElementById("settings-close").addEventListener('click', handleSettingsDisplay);
 

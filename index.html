@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="shortcut icon" href="./images/bubble_favicon.png" type="image/x-icon">
     <link rel="manifest" href="manifest.json">
     <title>Pop-it game!</title>
 </head>
 <body>
-    <h1>Pop-it</h1>
+    <h1>Pop it!</h1>
 
-    <select id="board-choice"></select>
+    <div class="menu">
+        <button id="help-button">❔</button>
+        <button id="settings-button">⚙️</button>
+    </div>
     <label id="currentPlayer">To be initialized....</label>
     <label id="score"></label>
     <!-- <button id="undo">↩️</button> -->
@@ -23,6 +25,60 @@
     </div>
     <div id="board">
     </div>
+
+    <div id="help-popup" class="popup">
+        <div>
+            <button id="help-close">x</button>
+        </div>
+        <div class="content">
+            <p>
+                "Pop it!" is a 2 players game where the goal is to not be the player that pop the last bubble.
+            </p>
+
+            <p>
+                Each turn you could pop between 1 and 3 bubbles situated <em>on the same line</em>.
+            </p>
+        </div>
+    </div>
+
+    <div id="settings-popup" class="popup">
+        <div>
+            <button id="settings-close">x</button>
+        </div>
+
+        <div id="settings" class="content">
+            <div>
+                <select id="board-choice"></select>
+            </div>
+            <div>
+                <label for="player1-name">Player 1 name:</label>
+                <input type="text" name="name" id="player1-name">
+            </div>
+            <fieldset>
+                <legend>Player2 type:</legend>
+                <div>
+                    <input type="radio" name="type" id="human" value="human">
+                    <label for="human">Human</label>
+                </div>
+                <div>
+                    <input type="radio" name="type" id="computer-easy" value="computerEasy" checked>
+                    <label for="computer-easy">Computer (Easy)</label>
+                </div>
+                <div>
+                    <input type="radio" name="type" id="computer-hard" value="computerHard">
+                    <label for="computer-hard">Computer (Hard)</label>
+                </div>
+            </fieldset>
+            <div>
+                <label for="player2-name">Player 2 name: </label>
+                <input type="text" name="name" id="player1-name">
+            </div>
+            <div>
+                <input type="checkbox" name="sound" id="setting-sound">
+                <label for="setting-sound">Sound</label>
+            </div>
+        </div>
+    </div>
     <script src="./js/popit.js"></script>
     <script>
     if (navigator.serviceWorker) {
@@ -31,3 +87,7 @@
     </script>
 </body>
 </html>
+
+
+<!-- https://freefrontend.com/css-bubbles/ -->
+<!-- https://codepen.io/samarkandiy/pen/nmdEmo?editors=1100 -->
