@@ -48,6 +48,7 @@
 
         <div id="settings" class="content">
             <div>
+                <label for="board-choice">Board shape:</label>
                 <select id="board-choice"></select>
             </div>
             <div>
@@ -57,25 +58,25 @@
             <fieldset>
                 <legend>Player2 type:</legend>
                 <div>
-                    <input type="radio" name="type" id="human" value="human">
+                    <input type="radio" name="player2-type" id="human" value="human">
                     <label for="human">Human</label>
                 </div>
                 <div>
-                    <input type="radio" name="type" id="computer-easy" value="computerEasy" checked>
+                    <input type="radio" name="player2-type" id="computer-easy" value="computerEasy" checked>
                     <label for="computer-easy">Computer (Easy)</label>
                 </div>
                 <div>
-                    <input type="radio" name="type" id="computer-hard" value="computerHard">
+                    <input type="radio" name="player2-type" id="computer-hard" value="computerHard">
                     <label for="computer-hard">Computer (Hard)</label>
                 </div>
             </fieldset>
             <div>
                 <label for="player2-name">Player 2 name: </label>
-                <input type="text" name="name" id="player1-name">
+                <input type="text" name="name" id="player2-name">
             </div>
             <div>
                 <input type="checkbox" name="sound" id="setting-sound">
-                <label for="setting-sound">Sound</label>
+                <label for="setting-sound">Play sound</label>
             </div>
         </div>
     </div>

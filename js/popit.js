@@ -20,6 +20,28 @@ const MessageType = {
     congrats : "congrats",
 }
 
+let settings = localStorage.getItem("settings");
+const isFirstLoading = settings === null;
+
+if (isFirstLoading) {
+    settings = {
+        playSound: true,
+        board: "square-5",
+        player1: { name: "You", wins: 0, type: PlayerType.human }, 
+        player2: { name: "Computer (easy)", wins: 0, type: PlayerType.computerEasy },
+    };
+    saveSettings();
+    document.getElementById("help-popup").classList.add("visible");
+}
+else {
+    settings = JSON.parse(settings);
+}
+
+function saveSettings() {
+    localStorage.setItem("settings", JSON.stringify(settings));
+}
+
+
 class Board {
     constructor(board, players) {
         this.board = board;
@@ -259,7 +281,9 @@ class Board {
         // this.selectedCells.push(iCell);
         console.log("this.selectedCells (after add)", this.selectedCells);
         this.changeCellState(iRow, iCol, BubbleState.selected);
-        //this.audio.play();
+        if (settings.playSound) {
+            this.audio.play();
+        }
     }
 
     changeCellState(iRow, iCol, newState) {
@@ -373,7 +397,7 @@ boardChoice.innerHTML = `<option value="line-5">Line 5</option>
 <option value="line-10">Line 10</option>
 <option value="square-3">Square 3x3</option>
 <option value="square-4">Square 4x4</option>
-<option value="square-5" selected>Square 5x5</option>
+<option value="square-5">Square 5x5</option>
 <option value="square-6">Square 6x6</option>
 <option value="square-7">Square 7x7</option>
 <option value="diamond-3">Diamond 3</option>
@@ -386,14 +410,12 @@ boardChoice.innerHTML = `<option value="line-5">Line 5</option>
 `;
 
 
-boardChoice.addEventListener("change", e => boardSelectionChanged(e));
-
 function getPlayers() {
 //  return [{ name: "Phil", wins: 0, type: PlayerType.human }, {name: "Mia", wins: 0, type: PlayerType.human }];
- return [{ name: "Phil", wins: 0, type: PlayerType.human }, {name: "Computer", wins: 0, type: PlayerType.computerHard }];
+ return [ settings.player1, settings.player2];
 }
 
-function boardSelectionChanged() {
+function settingsChanged() {
     let gridRows;
     let gridColumns;
     let selectedValue = document.getElementById("board-choice").value;
@@ -434,9 +456,9 @@ _x_`, getPlayers());
     document.documentElement.style.setProperty('--cell-size', `${width}px`);
     document.documentElement.style.setProperty('--grid-rows', gridRows);
     document.documentElement.style.setProperty('--grid-columns', gridColumns);
+    saveSettings();
 }
 
-boardSelectionChanged();
 
 // function undo(event) {
 //     popGame.undo(event)
@@ -455,4 +477,56 @@ document.getElementById("help-button").addEventListener('click', handleHelpDispl
 document.getElementById("help-close").addEventListener('click', handleHelpDisplay);
 document.getElementById("settings-button").addEventListener('click', handleSettingsDisplay);
 document.getElementById("settings-close").addEventListener('click', handleSettingsDisplay);
+
+// loading settings
+boardChoice.value = settings.board;
+boardChoice.addEventListener('change', () => {
+    settings.board = boardChoice.value;
+    settingsChanged();
+});
+
+const player1name = document.getElementById("player1-name");
+player1name.value = settings.player1.name;
+player1name.addEventListener('change',  (e) => {
+    settings.player1.name = e.target.value;
+    settingsChanged();
+});
+
+const player2name = document.getElementById("player2-name");
+player2name.value = settings.player2.name;
+player2name.addEventListener('change',  (e) => {
+    settings.player2.name = e.target.value;
+    settingsChanged();
+});
+
+const soundSetting = document.getElementById("setting-sound");
+soundSetting.checked = settings.playSound;
+soundSetting.addEventListener('change',  (e) => {
+    settings.playSound = e.target.checked;
+    settingsChanged();
+});
+
+
+
+document.querySelectorAll('input[name="player2-type"]').forEach((elem) => {
+    elem.addEventListener("change", function(event) {
+        console.log("type changed", event.target.value);
+        settings.player2.type = event.target.value;
+        switch(settings.player2.type)
+        {
+            case PlayerType.human:
+                settings.player2.name = document.getElementById("player2-name").value || "You";
+                break;
+            case PlayerType.computerEasy:
+                settings.player2.name = "Computer (easy)";
+                break;
+            case PlayerType.computerHard:
+                settings.player2.name = "Computer (hard)";
+                break;
+        }
+        settingsChanged();
+    });
+});
+
+settingsChanged();
 
