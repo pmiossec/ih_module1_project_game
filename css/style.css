@@ -63,11 +63,11 @@ button {
 #bth-switch-player {
     /* width: 100px;
     border-radius: 0; */
-    font-size: 20px;
-    font-weight: bolder;
+    /* font-size: 25px;
+    font-weight: bolder; */
     margin: 30px;
-    padding-top: 0px;
-    color:  var(--blue);
+    /* padding-top: 0px;
+    color:  var(--blue); */
 }
 
 #board {
