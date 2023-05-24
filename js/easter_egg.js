@@ -2,12 +2,12 @@ console.log("hurry!")
 
 const cells = [...document.getElementsByClassName("direction")];
 const walls = [...document.getElementsByClassName("wall")];
-const playerSize = 33;
+const playerSize = 51;
 const playerCenterSize = Math.floor(playerSize / 2) + 1;
 
 const directions = ["left", "up", "right", "down"];
 const position = {x: 1, y: 1};
-const offset = (51 - playerSize)/2;
+const offset = Math.floor((51 - playerSize)/2);
 cells.forEach(c => {
     c.classList.add(directions[Math.floor(Math.random() * 4)]);
     c.addEventListener('click', () => {
@@ -25,6 +25,7 @@ const endCell = document.getElementById("end");
 
 const player = document.getElementById("player");
 let playerDirection = "right";
+const playerImg = document.getElementById("player-img");
 
 setTimeout(start, 10_000);
 
@@ -74,6 +75,7 @@ function checkPlayerShouldChangeDirection() {
         if (cellCenter.x === playerCenter.x && cellCenter.y === playerCenter.y ) {
             console.log("Change direction", "old:", playerDirection, "new:", c.classList[2]);
             playerDirection = c.classList[2];
+            playerImg.src = `./images/mouse_${playerDirection}.png`
         }
     });
 }

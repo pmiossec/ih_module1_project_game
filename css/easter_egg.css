@@ -1,6 +1,6 @@
 :root {
     --cell-size: 51px;
-    --player-size: 33px;
+    --player-size: 51px;
     --offset: calc((var(--cell-size) - var(--player-size)) / 2);
     --border-size: 2px;
     --grid-columns: 6;
@@ -19,7 +19,6 @@ body {
 div#board {
     width: calc(6 * var(--cell-size) + 7 * var(--border-size));
     height: calc(6 * var(--cell-size) + 7 * var(--border-size));
-    /* border:1px solid pink; */
     display: flex;
     flex-wrap: wrap;
     position: relative;
@@ -46,7 +45,6 @@ div.border-vertical {
 div.cell {
     width: var(--cell-size);
     height: var(--cell-size);
-    /* background-color: var(--back-color); */
     font-size: var(--cell-size);
     padding: 0px;
     margin: 0px;
@@ -57,11 +55,6 @@ div.cell {
 div.wall {
     background-color: white;
 }
-
-/* img {
-    width: var(--cell-size);
-    height: var(--cell-size);
-} */
 
 .left {
     background-image: url("../images/arrow_left.png");
@@ -84,14 +77,13 @@ div.wall {
 }
 
 #end {
-    background-color: greenyellow;
+    background-color: #00A6ED;
 }
 
 #player {
     position: absolute;
-    top: 11px;
-    left: 11px;
+    top: 1px;
+    left: 1px;
     width: var(--player-size);
     height: var(--player-size);
-    background-color: aquamarine;
 }
