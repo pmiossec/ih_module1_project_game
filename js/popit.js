@@ -558,7 +558,7 @@ settingsChanged();
 document.getElementsByTagName("h1")[0].addEventListener('click', () => {
     easterEgg++;
     if (easterEgg === 10) {
-        location.replace('./easter_egg.html')
+        location = './easter_egg.html';
     }
 })
 
