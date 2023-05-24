@@ -20,3 +20,33 @@ startCell.classList.replace("start", "right");
 
 const player = document.getElementById("player");
 let playerDirection = "right";
+
+setTimeout(start, 10_000);
+
+function start(){
+    console.log("will start to move the player");
+    setInterval(movePlayer, 10);
+}
+
+function movePlayer() {
+    console.log("moving the player");
+    switch(playerDirection) {
+        case "right":
+            position.x++;
+            break;
+        case "left":
+            position.x--;
+            break;
+        case "up":
+            position.y--;
+            break;
+        case "down":
+            position.y++;
+            break;
+
+    }
+
+    player.style.left = `${position.x + offset}px`;
+    player.style.top = `${position.y + offset}px`;
+}
+
