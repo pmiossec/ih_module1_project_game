@@ -54,8 +54,9 @@ button {
 }
 
 .player-panel {
-    min-width: 200px;
-    padding: 0px 20px;
+    width: 40vh;
+    max-width: 150px;
+    padding: 10px 0px;
     text-align: center;
 }
 
@@ -66,6 +67,7 @@ button {
     font-weight: bolder;
     margin: 30px;
     padding-top: 0px;
+    color:  var(--blue);
 }
 
 #board {

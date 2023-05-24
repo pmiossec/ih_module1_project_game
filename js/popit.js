@@ -486,12 +486,8 @@ __x__`, getPlayers());
     saveSettings();
 }
 
+document.getElementById("bth-switch-player").addEventListener('click', () => popGame.switchPlayer());
 
-// function undo(event) {
-//     popGame.undo(event)
-// }
-
-// document.getElementById('undo').addEventListener('click', undo);
 function handleHelpDisplay() {
     document.getElementById("help-popup").classList.toggle("visible");
 }
