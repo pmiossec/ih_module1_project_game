@@ -399,12 +399,11 @@ class RandomBoard extends Board {
 let popGame = null;
 
 const boardChoice = document.getElementById("board-choice");
-boardChoice.innerHTML = `<option value="line-5">Line 5</option>
-<option value="line-6">Line 6</option>
-<option value="line-7">Line 7</option>
+boardChoice.innerHTML = `<option value="line-7">Line 7</option>
 <option value="line-8">Line 8</option>
 <option value="line-9">Line 9</option>
 <option value="line-10">Line 10</option>
+<option value="line-11">Line 11</option>
 <option value="square-3">Square 3x3</option>
 <option value="square-4">Square 4x4</option>
 <option value="square-5">Square 5x5</option>
@@ -454,9 +453,11 @@ function settingsChanged() {
 
     } else if(selectedValue === "custom1"){
         // console.log("Should not happen!!!");
-        popGame = new FreeBoard(`_x_
-x_x
-_x_`, getPlayers());
+        popGame = new FreeBoard(`__x__
+_x_x_
+x_x_x
+_x_x_
+__x__`, getPlayers());
         gridRows = popGame.rowsCount;
         gridColumns = popGame.colsCount;
     } else if(selectedValue.startsWith("random"))  {
