@@ -5,6 +5,10 @@
     --back-color: #11191f;
 }
 
+* {
+    user-select: none;
+}
+
 body {
     color: white;
     background-color: #11191f;

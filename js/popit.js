@@ -71,7 +71,7 @@ class Board {
         for (let iRow = 0; iRow < board.length; iRow++) {
             cells[iRow] = [];
             for (let iCol = 0; iCol < board[iRow].length; iCol++) {
-                let div = document.createElement("div");
+                const div = document.createElement("div");
                 div.setAttribute("class", board[iRow][iCol]);
                 div.setAttribute("id", `c${iRow}_${iCol}`);
                 if(board[iRow][iCol] !== BubbleState.unused) {
