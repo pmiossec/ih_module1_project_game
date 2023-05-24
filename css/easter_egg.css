@@ -1,5 +1,7 @@
 :root {
-    --cell-size: 50px;
+    --cell-size: 51px;
+    --player-size: 33px;
+    --offset: calc((var(--cell-size) - var(--player-size)) / 2);
     --border-size: 2px;
     --grid-columns: 6;
     --grid-rows: 6;
@@ -14,12 +16,13 @@ body {
     align-items: center;
 }
 
-div.board {
+div#board {
     width: calc(6 * var(--cell-size) + 7 * var(--border-size));
     height: calc(6 * var(--cell-size) + 7 * var(--border-size));
     /* border:1px solid pink; */
     display: flex;
     flex-wrap: wrap;
+    position: relative;
 }
 
 div.pixel {
@@ -68,7 +71,7 @@ div.cell {
     background-image: url("../images/arrow_right.png");
 }
 
-.bottom {
+.down {
     background-image: url("../images/arrow_bottom.png");
 }
 
@@ -82,4 +85,13 @@ div.cell {
 
 .end {
     background-color: greenyellow;
+}
+
+#player {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: var(--player-size);
+    height: var(--player-size);
+    background-color: aquamarine;
 }
