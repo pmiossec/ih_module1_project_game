@@ -27,11 +27,22 @@ const player = document.getElementById("player");
 let playerDirection = "right";
 const playerImg = document.getElementById("player-img");
 
-setTimeout(start, 10_000);
+let countDown = 10;
+const intervalStart = setInterval(start, 1_000);
+
+function displayTime() {
+    document.getElementById("time").innerText = `${countDown} s remaining!`;
+}
+displayTime();
 
 function start(){
-    console.log("will start to move the player");
-    setInterval(movePlayer, 10);
+    countDown--;
+    displayTime();
+    if (countDown === 0) {
+        console.log("will start to move the player");
+        setInterval(movePlayer, 10);
+        clearInterval(intervalStart);
+    }
 }
 
 function movePlayer() {
