@@ -82,12 +82,12 @@ button {
 #board div.untouched:before {
     background: rgba(255, 255, 255, 0.2);
     content: "";
-    width: calc(0.3 * var(--cell-size));
-    height: calc(0.1 * var(--cell-size));
+    width: calc(0.4 * var(--cell-size));
+    height: calc(0.15 * var(--cell-size));
     position: absolute;
-    margin: calc(0.2 * var(--cell-size)) 0 0 calc(0.2 * var(--cell-size));
+    margin: calc(0.15 * var(--cell-size)) 0 0 calc(0.1 * var(--cell-size));
     border-radius: 50%;
-    transform: rotate(-20deg);
+    transform: rotate(-35deg);
 }
 
 .info {
