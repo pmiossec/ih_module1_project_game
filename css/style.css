@@ -45,8 +45,6 @@ button {
 }
 
 #board {
-    /* width: 80vw; */
-    /* height: 80vw; */
     margin-left: auto;
     margin-right: auto;
     display: grid;
@@ -56,7 +54,6 @@ button {
 }
 
 #board div {
-    /* border: 1px blue solid; */
     width: var(--cell-size);
     height: var(--cell-size);
     border-radius: 50%;
@@ -73,7 +70,6 @@ button {
 
 #board div.untouched {
     background-color: rgb(37, 148, 245);
-    /* background: rgba(255, 255, 255, 0.1); */
     width: var(--cell-size);
     height: var(--cell-size);
     max-width: 100px;
@@ -93,10 +89,6 @@ button {
     border-radius: 50%;
     transform: rotate(-20deg);
 }
-
-/* .unused{
-    
-} */
 
 .info {
     color: white;
