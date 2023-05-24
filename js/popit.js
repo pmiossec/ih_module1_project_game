@@ -90,7 +90,11 @@ class Board {
     }
 
     displayScore() {
-        document.getElementById("score").innerText =  `${this.players[0].name}: ${this.players[0].wins} - ${this.players[1].name}: ${this.players[1].wins}`;
+        document.getElementById("player1-name").innerText = this.players[0].name;
+        document.getElementById("player1-score").innerText = this.players[0].wins;
+        document.getElementById("player2-name").innerText = this.players[1].name;
+        document.getElementById("player2-score").innerText = this.players[1].wins;
+        // document.getElementById("score").innerText =  `${this.players[0].name}: ${this.players[0].wins} - ${this.players[1].name}: ${this.players[1].wins}`;
     }
     
     switchCurrentPlayer() {
@@ -99,7 +103,14 @@ class Board {
         console.log("Current player will be:", player)
         const currentPlayerLabel = document.getElementById("currentPlayer");
         console.log("currentPlayerLabel", currentPlayerLabel);
-        currentPlayerLabel.textContent = `Player ${this.activePlayer + 1} : ${player.name}`;
+        if (this.activePlayer === 0) {
+            document.getElementById("player1-panel").classList.add("active");
+            document.getElementById("player2-panel").classList.remove("active");
+        } else {
+            document.getElementById("player1-panel").classList.remove("active");
+            document.getElementById("player2-panel").classList.add("active");
+        }
+        // currentPlayerLabel.textContent = `Player ${this.activePlayer + 1} : ${player.name}`;
     }
 
     displayUserMessage(message, type = "info") {
@@ -501,14 +512,14 @@ boardChoice.addEventListener('change', () => {
     settingsChanged();
 });
 
-const player1name = document.getElementById("player1-name");
+const player1name = document.getElementById("setting-player1-name");
 player1name.value = settings.player1.name;
 player1name.addEventListener('change',  (e) => {
     settings.player1.name = e.target.value;
     settingsChanged();
 });
 
-const player2name = document.getElementById("player2-name");
+const player2name = document.getElementById("setting-player2-name");
 player2name.value = settings.player2.name;
 player2name.addEventListener('change',  (e) => {
     settings.player2.name = e.target.value;

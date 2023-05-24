@@ -16,10 +16,19 @@
         <button id="help-button">❔</button>
         <button id="settings-button">⚙️</button>
     </div>
-    <label id="score"></label>
-    <!-- <button id="undo">↩️</button> -->
-    <button id="bth-switch-player" onclick="javascript:popGame.switchPlayer()">End turn</button>
-    <label id="currentPlayer">To be initialized....</label>
+    <div id="players">
+        <div id="player1-panel" class="player-panel">
+            <p>Player 1</p>
+            <p id="player1-name"></p>
+            Score: <span id="player1-score"></span>
+        </div>
+        <button id="bth-switch-player" onclick="javascript:popGame.switchPlayer()">↔️</button>
+        <div id="player2-panel" class="player-panel">
+            <p>Player 2</p>
+            <p id="player2-name"></p>
+            <p>Score: <span id="player2-score"></span></p>
+        </div>
+    </div>
     <div id="message">
         <label id="user-message">&nbsp;</label>
     </div>
@@ -52,8 +61,8 @@
                 <select id="board-choice"></select>
             </div>
             <div>
-                <label for="player1-name">Player 1 name:</label>
-                <input type="text" name="name" id="player1-name">
+                <label for="setting-player1-name">Player 1 name:</label>
+                <input type="text" name="name" id="setting-player1-name">
             </div>
             <fieldset>
                 <legend>Player2 type:</legend>
@@ -71,8 +80,8 @@
                 </div>
             </fieldset>
             <div>
-                <label for="player2-name">Player 2 name: </label>
-                <input type="text" name="name" id="player2-name">
+                <label for="setting-player2-name">Player 2 name: </label>
+                <input type="text" name="name" id="setting-player2-name">
             </div>
             <div>
                 <input type="checkbox" name="sound" id="setting-sound">

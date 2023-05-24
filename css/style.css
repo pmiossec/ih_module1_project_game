@@ -3,6 +3,7 @@
     --grid-columns: 6;
     --grid-rows: 6;
     --back-color: #11191f;
+    --blue: rgb(37, 148, 245);
 }
 
 * {
@@ -38,10 +39,33 @@ button {
     border: 2px solid white;
 }
 
+#players {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-panel {
+    border: 2px solid var(--back-color);
+}
+
+.player-panel.active {
+    border: 2px solid var(--blue);
+}
+
+.player-panel {
+    min-width: 200px;
+    padding: 0px 20px;
+    text-align: center;
+}
+
 #bth-switch-player {
-    width: 100px;
-    border-radius: 0;
-    margin: 10px;;
+    /* width: 100px;
+    border-radius: 0; */
+    font-size: 20px;
+    font-weight: bolder;
+    margin: 30px;
+    padding-top: 0px;
 }
 
 #board {
@@ -69,7 +93,7 @@ button {
 }
 
 #board div.untouched {
-    background-color: rgb(37, 148, 245);
+    background-color: var(--blue);
     width: var(--cell-size);
     height: var(--cell-size);
     max-width: 100px;
@@ -88,6 +112,10 @@ button {
     margin: calc(0.15 * var(--cell-size)) 0 0 calc(0.1 * var(--cell-size));
     border-radius: 50%;
     transform: rotate(-35deg);
+}
+
+#message {
+    margin: 20px;
 }
 
 .info {
