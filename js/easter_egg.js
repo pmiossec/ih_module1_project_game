@@ -70,7 +70,7 @@ function checkPlayerShouldChangeDirection() {
     console.log("playerCenter", playerCenter);
     cells.forEach(c => {
         const cellCenter = getCenter(c);
-        console.log("cellCenter", cellCenter);
+        // console.log("cellCenter", cellCenter);
         if (cellCenter.x === playerCenter.x && cellCenter.y === playerCenter.y ) {
             console.log("Change direction", "old:", playerDirection, "new:", c.classList[2]);
             playerDirection = c.classList[2];
@@ -83,7 +83,7 @@ function checkGameLost() {
     console.log("playerCenter", playerCenter);
     walls.forEach(c => {
         const wallCenter = getCenter(c);
-        console.log("wallCenter", wallCenter);
+        // console.log("wallCenter", wallCenter);
         if (wallCenter.x === playerCenter.x && wallCenter.y === playerCenter.y ) {
             console.log("game lost");
             alert("Game lost!!!");
@@ -96,7 +96,7 @@ function checkGameWon() {
     const playerCenter = getCenter(player);
     console.log("playerCenter", playerCenter);
     const endCenter = getCenter(endCell);
-    console.log("endCenter", endCenter);
+    // console.log("endCenter", endCenter);
     if (endCenter.x === playerCenter.x && endCenter.y === playerCenter.y ) {
         console.log("game won");
         alert("Game won!!!");

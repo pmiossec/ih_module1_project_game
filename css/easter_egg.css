@@ -28,19 +28,19 @@ div#board {
 div.pixel {
     width: var(--border-size);
     height: var(--border-size);
-    /* background-color: white; */
+    background-color: white;
 }
 
 div.border-horizontal {
     width: var(--cell-size);
     height: var(--border-size);
-    /* background-color: white; */
+    background-color: #00A6ED;
 }
 
 div.border-vertical {
     width: var(--border-size);
     height: var(--cell-size);
-    /* background-color: white; */
+    background-color: #00A6ED;
 }
 
 div.cell {
@@ -54,7 +54,7 @@ div.cell {
     vertical-align: top;
 }
 
-.wall {
+div.wall {
     background-color: white;
 }
 
@@ -89,8 +89,8 @@ div.cell {
 
 #player {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 11px;
+    left: 11px;
     width: var(--player-size);
     height: var(--player-size);
     background-color: aquamarine;
