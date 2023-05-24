@@ -20,8 +20,9 @@ const MessageType = {
     congrats : "congrats",
 }
 
-let settings = localStorage.getItem("settings");
-const isFirstLoading = settings === null;
+let seetingsString = localStorage.getItem("settings");
+let settings = null
+const isFirstLoading = seetingsString === null;
 
 let easterEgg = 0;
 
@@ -36,11 +37,14 @@ if (isFirstLoading) {
     document.getElementById("help-popup").classList.add("visible");
 }
 else {
-    settings = JSON.parse(settings);
+    settings = JSON.parse(seetingsString);
 }
 
 function saveSettings() {
-    localStorage.setItem("settings", JSON.stringify(settings));
+    const settingsClone = structuredClone(settings);
+    settingsClone.player1.wins = 0;
+    settingsClone.player2.wins = 0;
+    localStorage.setItem("settings", JSON.stringify(settingsClone));
 }
 
 
