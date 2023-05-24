@@ -79,11 +79,11 @@ div.cell {
     background-image: url("../images/arrow_up.png");
 }
 
-.start {
+#start {
     background-color: grey;
 }
 
-.end {
+#end {
     background-color: greenyellow;
 }
 
