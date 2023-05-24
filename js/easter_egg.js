@@ -12,7 +12,6 @@ cells.forEach(c => {
     c.classList.add(directions[Math.floor(Math.random() * 4)]);
     c.addEventListener('click', () => {
         const currentValue = c.classList[2];
-        console.log("currentValue", currentValue);
         const newValue = directions[(directions.indexOf(currentValue) + 1) % 4];
         c.classList.replace(currentValue, newValue);
     })
@@ -46,7 +45,7 @@ function start(){
 }
 
 function movePlayer() {
-    console.log("moving the player");
+    // console.log("moving the player");
     switch(playerDirection) {
         case "right":
             position.x++;
@@ -65,9 +64,11 @@ function movePlayer() {
     player.style.left = `${position.x + offset + 1}px`;
     player.style.top = `${position.y + offset + 1}px`;
 
-    checkGameWon();
-    checkPlayerShouldChangeDirection();
-    checkGameLost();
+    const playerCenter = getCenter(player);
+    console.log("playerCenter", playerCenter);
+    checkGameWon(playerCenter);
+    checkPlayerShouldChangeDirection(playerCenter);
+    checkGameLost(playerCenter);
 }
 
 function getCenter(domElement) {
@@ -77,9 +78,7 @@ function getCenter(domElement) {
     return { x: centerX, y: centerY };
 }
 
-function checkPlayerShouldChangeDirection() {
-    const playerCenter = getCenter(player);
-    console.log("playerCenter", playerCenter);
+function checkPlayerShouldChangeDirection(playerCenter) {
     cells.forEach(c => {
         const cellCenter = getCenter(c);
         // console.log("cellCenter", cellCenter);
@@ -91,12 +90,10 @@ function checkPlayerShouldChangeDirection() {
     });
 }
 
-function checkGameLost() {
-    const playerCenter = getCenter(player);
-    console.log("playerCenter", playerCenter);
+function checkGameLost(playerCenter) {
     walls.forEach(c => {
         const wallCenter = getCenter(c);
-        // console.log("wallCenter", wallCenter);
+        console.log("wallCenter", wallCenter);
         if (wallCenter.x === playerCenter.x && wallCenter.y === playerCenter.y ) {
             console.log("game lost");
             alert("Game lost!!!");
@@ -105,9 +102,7 @@ function checkGameLost() {
     });
 }
 
-function checkGameWon() {
-    const playerCenter = getCenter(player);
-    console.log("playerCenter", playerCenter);
+function checkGameWon(playerCenter) {
     const endCenter = getCenter(endCell);
     // console.log("endCenter", endCenter);
     if (endCenter.x === playerCenter.x && endCenter.y === playerCenter.y ) {
