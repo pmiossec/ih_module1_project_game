@@ -514,7 +514,7 @@ const soundSetting = document.getElementById("setting-sound");
 soundSetting.checked = settings.playSound;
 soundSetting.addEventListener('change',  (e) => {
     settings.playSound = e.target.checked;
-    settingsChanged();
+    saveSettings();
 });
 
 
