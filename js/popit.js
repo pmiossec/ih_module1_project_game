@@ -143,6 +143,9 @@ class Board {
         if (this.isGameFinished()) {
             this.resetBoard();
             this.displayScore();
+            if (this.currentPlayer().type !== PlayerType.human) {
+                this.switchCurrentPlayer();
+            }
             return;
         }
 
