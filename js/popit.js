@@ -555,6 +555,7 @@ document.getElementsByTagName("h1")[0].addEventListener('click', () => {
     easterEgg++;
     audio.play();
     if (easterEgg === 10) {
+        easterEgg = 0;
         location = './easter_egg.html';
     }
 })
