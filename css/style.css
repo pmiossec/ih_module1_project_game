@@ -18,6 +18,11 @@ body {
     align-items: center;
 }
 
+select,option,input {
+    background-color: var(--back-color);
+    color: white;
+}
+
 h1 {
     text-align: center;
     /* margin: 2vw; */
@@ -204,8 +209,12 @@ button {
     /* padding: 100px; */
 }
 
-#help-popup p {
+#board-choice {
+    width: 60%;
+    max-width: 300px;
+}
 
+#help-popup p {
     font-size: x-large;
 }
 

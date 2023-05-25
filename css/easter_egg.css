@@ -8,6 +8,7 @@
     --back-color: #11191f;
 }
 
+
 * {
     user-select: none;
 }
@@ -18,6 +19,11 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+select,option,input {
+    background-color: var(--back-color);
+    color: white;
 }
 
 div#board {
