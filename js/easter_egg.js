@@ -128,7 +128,7 @@ function checkGameLost(playerCenter) {
         const wallCenter = getCenter(c);
         console.log("wallCenter", wallCenter);
         if (wallCenter.x === playerCenter.x && wallCenter.y === playerCenter.y ) {
-            document.getElementById("cheese-img").src = "../images/cheese_moldy.png";
+            document.getElementById("cheese-img").src = "./images/cheese_moldy.png";
             clearInterval(moveInterval);
             document.getElementById("time").innerText = "😐Game lost!😐";
             setTimeout(()=> {
