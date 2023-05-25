@@ -48,13 +48,19 @@ difficultyElement.addEventListener('change', () => {
         clearInterval(intervalStart);
     }
 
+    startCountDown();
+})
+
+function startCountDown() {
     if(difficultyElement.value) {
         shuffleBoard();
         countDown = +difficultyElement.value;
         displayTime();
         intervalStart = setInterval(start, 1_000);
     }
-})
+}
+
+startCountDown();
 
 function displayTime() {
     document.getElementById("time").innerText = 
