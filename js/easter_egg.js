@@ -8,8 +8,8 @@ const playerCenterSize = Math.floor(playerSize / 2) + 1;
 const directions = ["left", "up", "right", "down"];
 const position = {x: 1, y: 1};
 const offset = Math.floor((51 - playerSize)/2);
+
 cells.forEach(c => {
-    c.classList.add(directions[Math.floor(Math.random() * 4)]);
     c.addEventListener('click', () => {
         const currentValue = c.classList[2];
         const newValue = directions[(directions.indexOf(currentValue) + 1) % 4];
@@ -17,21 +17,50 @@ cells.forEach(c => {
     })
 });
 
+function shuffleBoard() {
+    cells.forEach(c => {
+        const direction = directions[Math.floor(Math.random() * 4)];
+        if(c.classList.length === 3) {
+            c.classList.replace(c.classList[2], direction);
+        } else {
+            c.classList.add(direction);
+        }
+    });
+}
+
+shuffleBoard();
+
 const startCell = document.getElementById("start");
 startCell.classList.replace("start", "right");
 
 const endCell = document.getElementById("end");
 
 const player = document.getElementById("player");
+player.addEventListener('click', startMouse);
 let playerDirection = "right";
 const playerImg = document.getElementById("player-img");
 
-let countDown = 10;
-const intervalStart = setInterval(start, 1_000);
+let countDown = null;
+let intervalStart = null;
+const difficultyElement = document.getElementById("difficulty");
+difficultyElement.addEventListener('change', () => {
+    if (intervalStart !== null) {
+        clearInterval(intervalStart);
+    }
+
+    if(difficultyElement.value) {
+        shuffleBoard();
+        countDown = +difficultyElement.value;
+        displayTime();
+        intervalStart = setInterval(start, 1_000);
+    }
+})
 
 function displayTime() {
-    document.getElementById("time").innerText = `${countDown} s remaining!`;
+    document.getElementById("time").innerText = 
+    countDown ? `${countDown} s remaining!` : `Please choose a difficulty...`;
 }
+
 displayTime();
 let moveInterval = null;
 function start(){
@@ -39,9 +68,13 @@ function start(){
     displayTime();
     if (countDown === 0) {
         console.log("will start to move the player");
-        moveInterval = setInterval(movePlayer, 10);
-        clearInterval(intervalStart);
+        startMouse();
     }
+}
+
+function startMouse() {
+    moveInterval = setInterval(movePlayer, 10);
+    clearInterval(intervalStart);
 }
 
 function movePlayer() {
