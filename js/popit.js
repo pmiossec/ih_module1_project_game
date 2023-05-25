@@ -19,6 +19,7 @@ const MessageType = {
     error : "error",
     congrats : "congrats",
 }
+const audio = new Audio('./sound/bubble-popping.mp3');
 
 let seetingsString = localStorage.getItem("settings");
 let settings = null
@@ -62,7 +63,6 @@ class Board {
         this.activePlayer = 1;
         this.switchCurrentPlayer();
         this.displayScore();
-        this.audio = new Audio('./sound/bubble-popping.mp3');
         this.messageElement =  document.getElementById("user-message");
     }
 
@@ -303,7 +303,7 @@ class Board {
         console.log("this.selectedCells (after add)", this.selectedCells);
         this.changeCellState(iRow, iCol, BubbleState.selected);
         if (settings.playSound) {
-            this.audio.play();
+            audio.play();
         }
     }
 
@@ -553,6 +553,7 @@ settingsChanged();
 
 document.getElementsByTagName("h1")[0].addEventListener('click', () => {
     easterEgg++;
+    audio.play();
     if (easterEgg === 10) {
         location = './easter_egg.html';
     }
