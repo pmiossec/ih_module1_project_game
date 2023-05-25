@@ -3,7 +3,7 @@
     --grid-columns: 6;
     --grid-rows: 6;
     --back-color: #11191f;
-    --blue: rgb(37, 148, 245);
+    --blue: #2594f5;
 }
 
 * {
@@ -20,8 +20,17 @@ body {
 
 h1 {
     text-align: center;
-    margin: 2vw;
-    margin-bottom: 6vw;
+    /* margin: 2vw; */
+    margin-bottom: 30px;
+    width: 100%;
+    transition: all 1s linear; 
+}
+
+@media (max-width: 400px) {
+    h1 {
+        text-align: left;
+        margin-bottom: 6vw;
+    }
 }
 
 .menu {
@@ -54,7 +63,7 @@ button {
 }
 
 .player-panel {
-    width: 40vh;
+    width: 40vw;
     max-width: 150px;
     padding: 10px 0px;
     text-align: center;
@@ -65,10 +74,24 @@ button {
     border-radius: 0; */
     /* font-size: 25px;
     font-weight: bolder; */
+    width: 20vw;
+    max-width: 50px;
     margin: 30px;
     /* padding-top: 0px;
     color:  var(--blue); */
 }
+
+@media (max-width: 400px) {
+    /* .player-panel {
+        width: 30vw;
+    } */
+    #bth-switch-player {
+        /* width: 30px; */
+        margin: 5px;
+        width: 30px;
+    }
+  }
+  
 
 #board {
     margin-left: auto;
