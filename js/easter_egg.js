@@ -33,13 +33,13 @@ function displayTime() {
     document.getElementById("time").innerText = `${countDown} s remaining!`;
 }
 displayTime();
-
+let moveInterval = null;
 function start(){
     countDown--;
     displayTime();
     if (countDown === 0) {
         console.log("will start to move the player");
-        setInterval(movePlayer, 10);
+        moveInterval = setInterval(movePlayer, 10);
         clearInterval(intervalStart);
     }
 }
@@ -106,6 +106,7 @@ function checkGameWon(playerCenter) {
     const endCenter = getCenter(endCell);
     // console.log("endCenter", endCenter);
     if (endCenter.x === playerCenter.x && endCenter.y === playerCenter.y ) {
+        clearInterval(moveInterval);
         console.log("game won");
         alert("Game won!!!");
         document.location.reload();
