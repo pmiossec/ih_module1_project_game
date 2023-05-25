@@ -128,9 +128,12 @@ function checkGameLost(playerCenter) {
         const wallCenter = getCenter(c);
         console.log("wallCenter", wallCenter);
         if (wallCenter.x === playerCenter.x && wallCenter.y === playerCenter.y ) {
-            console.log("game lost");
-            alert("Game lost!!!");
-            document.location.reload();
+            document.getElementById("cheese-img").src = "../images/cheese_moldy.png";
+            clearInterval(moveInterval);
+            document.getElementById("time").innerText = "😐Game lost!😐";
+            setTimeout(()=> {
+                document.location.reload();
+            }, 3_000);
         }
     });
 }
@@ -140,8 +143,9 @@ function checkGameWon(playerCenter) {
     // console.log("endCenter", endCenter);
     if (endCenter.x === playerCenter.x && endCenter.y === playerCenter.y ) {
         clearInterval(moveInterval);
-        console.log("game won");
-        alert("Game won!!!");
-        document.location.reload();
+        document.getElementById("time").innerText = "🎉🎉Game won!🎉🎉";
+        setTimeout(()=> {
+            document.location.reload();
+        }, 3_000);
     }
 }
