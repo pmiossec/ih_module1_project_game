@@ -81,7 +81,7 @@ button {
     color:  var(--blue); */
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
     /* .player-panel {
         width: 30vw;
     } */
